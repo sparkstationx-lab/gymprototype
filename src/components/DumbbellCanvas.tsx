@@ -154,6 +154,7 @@ export const DumbbellCanvas: React.FC = () => {
 
     updateSize();
     window.addEventListener('resize', updateSize);
+    window.addEventListener('orientationchange', updateSize);
 
     const handlePointerMove = (e: PointerEvent) => {
       pointerX = e.clientX / window.innerWidth - 0.5;
@@ -166,7 +167,7 @@ export const DumbbellCanvas: React.FC = () => {
       animationFrameId = requestAnimationFrame(animate);
       if (document.hidden) return;
 
-      if (sections.length === 0) {
+      if (sections.length === 0 || sectionTops.length === 0) {
         sections = Array.from(document.querySelectorAll('main > section'));
         sectionTops = sections.map(
           (s) => s.getBoundingClientRect().top + window.scrollY
@@ -199,8 +200,8 @@ export const DumbbellCanvas: React.FC = () => {
       }
 
       group.position.set(
-        cur[0] * (isMobile ? 0.12 : 1),
-        isMobile ? cur[1] + 1.5 : cur[1],
+        cur[0] * (isMobile ? 0.15 : 1),
+        isMobile ? cur[1] + 1.2 : cur[1],
         0
       );
       group.rotation.set(
@@ -208,7 +209,7 @@ export const DumbbellCanvas: React.FC = () => {
         cur[3] + (reduce ? 0 : t * 0.0003),
         cur[4]
       );
-      group.scale.setScalar(cur[5] * (isMobile ? 0.7 : 1));
+      group.scale.setScalar(cur[5] * (isMobile ? 0.55 : 1));
 
       points.position.y = (window.scrollY * 0.002) % 4;
       camera.position.x += (pointerX * 0.8 - camera.position.x) * 0.05;
@@ -222,6 +223,7 @@ export const DumbbellCanvas: React.FC = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', updateSize);
+      window.removeEventListener('orientationchange', updateSize);
       window.removeEventListener('pointermove', handlePointerMove);
       renderer.dispose();
       particleGeo.dispose();
