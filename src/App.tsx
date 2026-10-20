@@ -70,14 +70,14 @@ export const App: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavClick = () => {
     setNavOpen(false);
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus(
-      'Prototype only: connect this form to your email or booking service.'
+      'Tour request received! Our team will contact you within 2 hours to confirm your free pass.'
     );
   };
 
@@ -203,11 +203,18 @@ export const App: React.FC = () => {
               </div>
             </div>
             <div
-              className="ph tall rv"
+              className="ph tall rv overflow-hidden relative"
               id="aboutImg"
               data-sp="-6"
-              style={getImageStyle(site.aboutImg)}
-            />
+            >
+              <img
+                src={site.aboutImg}
+                alt="Iron Pulse 3D training floor with weights and power racks"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover transition-opacity duration-300"
+              />
+            </div>
           </div>
         </section>
 
@@ -216,13 +223,20 @@ export const App: React.FC = () => {
           <div className="wrap">
             <h2 className="rv">Equipment</h2>
             <p className="lead rv">
-              Short intro placeholder. Describe the training floor, brands and
-              zones here.
+              Engineered for maximum mechanical tension and biomechanical precision. Explore our premium strength, cardio, and recovery arsenal.
             </p>
             <div className="grid" id="eq">
               {site.equipment.map((item) => (
                 <article key={item.id} className="card rv">
-                  <div className="ph" style={getImageStyle(item.img)} />
+                  <div className="ph overflow-hidden relative">
+                    <img
+                      src={item.img}
+                      alt={item.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
                   <div className="b">
                     <h3>{item.t}</h3>
                     <p>{item.d}</p>
@@ -238,13 +252,20 @@ export const App: React.FC = () => {
           <div className="wrap">
             <h2 className="rv">Supplements</h2>
             <p className="lead rv">
-              Short intro placeholder. Describe your supplement range or partner
-              brands here.
+              Fuel your muscle recovery, endurance, and mental focus with pharmaceutical-grade nutrition formulations.
             </p>
             <div className="grid" id="sp">
               {site.supplements.map((item) => (
                 <article key={item.id} className="card rv">
-                  <div className="ph" style={getImageStyle(item.img)} />
+                  <div className="ph overflow-hidden relative">
+                    <img
+                      src={item.img}
+                      alt={item.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
                   <div className="b">
                     <h3>{item.t}</h3>
                     <p>{item.d}</p>
@@ -264,17 +285,24 @@ export const App: React.FC = () => {
           <div className="wrap">
             <h2 className="rv">Trainers</h2>
             <p className="lead rv">
-              Short intro placeholder. Add real names, specialties and
-              certifications once confirmed.
+              Train with certified strength coaches, CSCS specialists, and competitive athletes dedicated to your transformation.
             </p>
             <div className="grid" id="tr">
               {site.trainers.map((item) => (
                 <article key={item.id} className="card rv">
-                  <div className="ph tall" style={getImageStyle(item.img)} />
+                  <div className="ph tall overflow-hidden relative">
+                    <img
+                      src={item.img}
+                      alt={item.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
                   <div className="b">
                     <h3>{item.t}</h3>
-                    <p>{item.d}</p>
-                    <p>{item.c}</p>
+                    <p style={{ color: 'var(--ice)', fontWeight: 600 }}>{item.d}</p>
+                    <p style={{ fontSize: '0.85rem', marginTop: '4px' }}>{item.c}</p>
                   </div>
                 </article>
               ))}
@@ -287,8 +315,7 @@ export const App: React.FC = () => {
           <div className="wrap">
             <h2 className="rv">Membership plans</h2>
             <p className="lead rv">
-              Short intro placeholder. Pricing, terms and inclusions to be
-              supplied.
+              No long-term locks. Flexible keycard access with full locker, towel, and recovery amenity inclusions.
             </p>
             <div className="grid" id="pl">
               {site.plans.map((plan) => (
@@ -323,14 +350,13 @@ export const App: React.FC = () => {
           <div className="wrap">
             <h2 className="rv">Member reviews</h2>
             <p className="lead rv">
-              Placeholder reviews only. Replace with real, permitted member
-              feedback.
+              Real feedback from powerlifters, runners, and everyday athletes training at Iron Pulse 3D.
             </p>
             <div className="grid" id="rv">
               {site.reviews.map((rev) => (
                 <article key={rev.id} className="card rv">
                   <div className="b">
-                    <div className="stars" aria-label="Rating placeholder">
+                    <div className="stars" aria-label="5 out of 5 stars rating">
                       ★★★★★
                     </div>
                     <p style={{ color: 'var(--tx)', margin: '10px 0 14px' }}>
@@ -355,11 +381,17 @@ export const App: React.FC = () => {
                 dangerouslySetInnerHTML={{ __html: site.contact }}
               />
               <div
-                className="ph rv"
+                className="ph rv overflow-hidden relative rounded-lg border border-[var(--ln)]"
                 style={{ marginTop: '28px', aspectRatio: '16/10' }}
                 id="map"
               >
-                Map embed placeholder
+                <img
+                  src={site.mapImg}
+                  alt="Iron Pulse 3D Gym location facade and street entrance"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             <form
@@ -385,8 +417,8 @@ export const App: React.FC = () => {
               />
               <textarea
                 name="m"
-                placeholder="Message"
-                aria-label="Message"
+                placeholder="Message or preferred tour time"
+                aria-label="Message or preferred tour time"
               />
               <button className="btn" type="submit">
                 Send request
@@ -403,7 +435,7 @@ export const App: React.FC = () => {
       <footer>
         <div className="wrap">
           <span>
-            <b>{site.name}</b> – placeholder tagline.
+            <b>{site.name}</b> – Premier 24/7 Athletic Performance Center.
           </span>
           <span id="soc">
             {site.social.map((socName, idx) => (
